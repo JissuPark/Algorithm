@@ -11,7 +11,7 @@ if __name__=="__main__":
         idx = 0
         for i in range(N-1, 0, -1):
             if P[i-1]<P[i]:
-                idx = i
+                idx = i4
                 break
         left = P[:i]
         right = P[i-1:]
