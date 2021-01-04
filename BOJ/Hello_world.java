@@ -1,4 +1,4 @@
-package com.company;
+package com.company.BOJ;
 
 public class Hello_world {
     public static void main(String[] args){

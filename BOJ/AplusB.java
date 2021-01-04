@@ -1,4 +1,4 @@
-package com.company.BOJ.java;
+package com.company.BOJ;
 
 import java.util.Scanner;
 
