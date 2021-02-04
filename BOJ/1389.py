@@ -15,10 +15,10 @@ def kevin_bacon(r):
     for a in r.keys():
         for b, v in r[a].items():
             if a!=b and v < 101:
-                kb_dfs(r, a, b, 1)
+                kb_dfs(r, a, b, r[a][b])
 
     ret = list(map(lambda x: sum(x.values())-101, r.values()))
-    return ret
+    return ret.index(min(ret))+1
 
 
 
@@ -31,4 +31,3 @@ if __name__ == "__main__":
         relations[B][A] = 1
     res = kevin_bacon(relations)
     print(res)
-    print(relations.values())
