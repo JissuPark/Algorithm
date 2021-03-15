@@ -1,43 +1,50 @@
 from sys import stdin
-from queue import PriorityQueue
+import heapq
 
 input = stdin.readline
 
 
-class DPQ:
-    def __init__(self):
-        self.que = []
+def double_priority_queue(q, ci, cd):
+    heap_max = []
+    heap_min = []
+    cnt = dict()
 
-    def insert(self, n):
-        i = 0
-        j = len(self.que) - 1
-
-        while self.que:  # 큐가 비었을때 패스
-            if j - i == 1 or self.que[j] == n:
-                self.que.insert(j, n)
-                break
-            if self.que[i] > n:
-                i, j = 0, i
-            elif self.que[j] < n:
-                i, j = j, len(self.que) - 1
+    if ci <= cd:
+        return "EMPTY"
+    for op, n in q:
+        if op == "I":
+            heapq.heappush(heap_max, (-n, n))
+            heapq.heappush(heap_min, (n, n))
+            if n in cnt:
+                cnt[n] += 1
             else:
-
+                cnt[n] = 1
+        elif op == "D" and len(cnt) == 0:
+            continue
+        elif op == "D" and n == "1":
+            _pop = heapq.heappop(heap_max)
+            cnt[_pop] -= 1
+            if len(cnt[_pop]) == 0:
+                del(cnt[_pop])
+        elif op == "D" and n == "-1":
+            heap.popleft(0)
+    return f'{heap[-1]} {heap[0]}' if heap else "EMPTY"
 
 
 if __name__ == "__main__":
     T = int(input())
     for _ in range(T):
-
         K = int(input())
+        Q = []
+        cnt_i, cnt_d = 0, 0
         for _ in range(K):
-            I, N = input().strip().split()
-            if I == 'I':
-                pq.insert(int(N))
-            elif I == 'D':
-                if len(pq.que) == 0:
-                    continue
-                pq.delete(int(N))
-        if len(pq.que) == 1:
-            print("EMPTY")
-        else:
-            print(pq.que[-1], pq.que[1])
+            i1, i2 = input().split()
+            if i1 == "I":
+                cnt_i += 1
+            else:
+                cnt_d += 1
+            if cnt_i == cnt_d:
+                continue
+            Q.append((i1, int(i2)))
+        res = double_priority_queue(Q, cnt_i, cnt_d, cnt)
+        print(res)

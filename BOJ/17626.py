@@ -4,6 +4,26 @@ from sys import stdin, setrecursionlimit
 input = stdin.readline
 
 
+def four_squares(n):
+    if (n ** 0.5).is_integer():
+        return 1
+    for i in range(1, int(n ** 0.5) + 1):
+        if n < i ** 2:
+            break
+        if ((n - i ** 2) ** 0.5).is_integer():
+            return 2
+    for i in range(1, int(n**0.5) + 1):
+        if n < i ** 2:
+            break
+        for j in range(1, int((n - i ** 2) ** 0.5) + 1):
+            if n < i ** 2 + j ** 2:
+                break
+            if ((n - i ** 2 - j ** 2) ** 0.5).is_integer():
+                return 3
+    return 4
+
+
+'''
 # PyPy3 : 통과
 def four_squares(n):
     if (n ** 0.5).is_integer():
@@ -16,7 +36,7 @@ def four_squares(n):
             _min = min(_min, DP[i - j * j] + 1)
         DP.append(_min)
     return DP[n]
-
+'''
 
 '''
 # DP : 시간초과 ? 왜 
@@ -54,6 +74,5 @@ def four_squares(n):
 
 if __name__ == "__main__":
     N = int(input())
-    DP = [0, 1]
     res = four_squares(N)
     print(res)
